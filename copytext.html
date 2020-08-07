@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>copy Text and Move the Text</title>
+    <style>
+        body{
+            background-color: crimson;
+            text-align: center;
+        }
+        textarea{
+            border:2px solid black;
+            background-color: darksalmon;
+        }
+        button{
+            width: auto;
+            height: 40px;
+            background-color: darkslategray;
+        }
+        .finaltxt {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Enter Text</h1>
+    <textarea name="copyTxt" rows="10" cols="70">Hello World</textarea><br>
+    <button class="moverBtn">Move Text</button>
+    <button class="copyBtn">Copy Text</button>
+    <br>
+    <textarea name="finalTxt" rows="10" cols="70"></textarea>
+    <div class="output"></div>
+    <script>
+        const copyTxt = document.querySelector("textarea[name=copyTxt]");
+        const finalTxt = document.querySelector("textarea[name=finalTxt]");
+        const moverBtn = document.querySelector(".moverBtn");
+        const copyBtn = document.querySelector(".copyBtn");
+        const output = document.querySelector(".output");
+
+        moverBtn.addEventListener("click", moveText);
+        copyBtn.addEventListener("click",copyText);
+        function moveText() {
+            let temp = copyTxt.value;
+            finalTxt.value = temp;
+        }
+
+        function copyText() {
+            let temp = copyTxt.value;
+            copytoClipboard(temp);
+
+        }
+        function copytoClipboard(str) {
+            const textarea = document.createElement("textarea");
+            textarea.value = str;
+            document.body.appendChild(textarea);//appends the textarea and its value when we click onth copy butto
+            textarea.select();//selects the text in the textarea
+            document.execCommand("copy");
+            document.body.removeChild(textarea); //    document.body.removeChild(textarea);//removes the textarea created when we call the function
+            output.innerHTML = "<h3>Copied content</h3>" + textarea.value;
+            console.log(textarea)
+        }
+        
+    </script>
+
+
+</html>
